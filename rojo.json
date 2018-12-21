@@ -1,0 +1,15 @@
+{
+	"name": "roact-router",
+	"servePort": 8000,
+	"partitions": {
+		"src": {
+			"path": "src",
+			"target": "ReplicatedStorage.RoactRouter"
+		},
+
+		"roact": {
+			"path": "roact",
+			"target": "ReplicatedStorage.Roact"
+		}
+	}
+}
