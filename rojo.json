@@ -8,7 +8,7 @@
 		},
 
 		"roact": {
-			"path": "roact",
+			"path": "roact/lib",
 			"target": "ReplicatedStorage.Roact"
 		}
 	}
