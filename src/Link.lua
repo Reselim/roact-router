@@ -7,7 +7,7 @@ function Link:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		
-		[Roact.Event.MouseButton1Down] = function()
+		[Roact.Event.MouseButton1Click] = function()
 			if self.props.replace then
 				self._context.history:replace(self.props.to)
 			else
