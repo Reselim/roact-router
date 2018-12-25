@@ -12,7 +12,7 @@ function Path.new(pattern)
 		table.insert(self.captures, name)
 
 		-- %s gets replaced by format
-		return ("([^/?%s]+)"):format(optional)
+		return ("([^/?]%s)"):format(optional ~= "" and "*" or "+")
 	end)
 
 	return self
