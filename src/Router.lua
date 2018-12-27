@@ -8,7 +8,13 @@ function Router:init()
 end
 
 function Router:render()
-	return Roact.oneChild(self.props[Roact.Children])
+	local children = self.props[Roact.Children]
+
+	if Roact.createFragment then
+		return Roact.createFragment(children)
+	end
+
+	return Roact.oneChild(children)
 end
 
 return Router
