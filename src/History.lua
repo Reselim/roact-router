@@ -46,14 +46,14 @@ function History:reset(location)
 	self.entries = { location }
 
 	self.location = location
-	self._changed:Fire(location)
+	self._changed:fire(location)
 end
 
 function History:go(offset)
 	self.index = math.clamp(self.index + offset, 1, #self.entries)
 
 	self.location = self.entries[self.index]
-	self._changed:Fire(self.location)
+	self._changed:fire(self.location)
 end
 
 function History:goBack()
