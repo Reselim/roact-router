@@ -8,10 +8,14 @@ function Link:render()
 		BackgroundTransparency = 1,
 		
 		[Roact.Event.MouseButton1Click] = function()
-			if self.props.replace then
-				self._context.history:replace(self.props.to)
+			if self.props.back then
+				self._context.history:goBack()
 			else
-				self._context.history:push(self.props.to)
+				if self.props.replace then
+					self._context.history:replace(self.props.to)
+				else
+					self._context.history:push(self.props.to)
+				end
 			end
 		end
 	})
