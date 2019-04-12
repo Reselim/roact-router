@@ -10,7 +10,7 @@ function Route:init()
 		location = history.location
 	})
 
-	self.listener = history:listen(function(location)
+	self.listener = history:subscribe(function(location, state)
 		self:setState({
 			location = location
 		})

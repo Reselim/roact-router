@@ -37,7 +37,7 @@ function History:push(location)
 	self:replace(location)
 end
 
-function History:listen(handler)
+function History:subscribe(handler)
 	return self._changed.Event:connect(handler)
 end
 
