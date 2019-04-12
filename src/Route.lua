@@ -7,12 +7,14 @@ function Route:init()
 	local history = self._context.history
 
 	self:setState({
-		location = history.location
+		location = history.location,
+		state = history.state
 	})
 
 	self.listener = history:subscribe(function(location, state)
 		self:setState({
-			location = location
+			location = location,
+			state = state
 		})
 	end)
 end
@@ -27,6 +29,7 @@ function Route:render()
 	local props = {
 		match = match,
 		location = self.state.location,
+		state = self.state.state,
 		history = self._context.history
 	}
 
