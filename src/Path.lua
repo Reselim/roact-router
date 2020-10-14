@@ -2,42 +2,55 @@ local Path = {}
 Path.__index = Path
 
 function Path.new(pattern)
-	local self = setmetatable({
-		pattern = pattern,
-		captures = {}
-	}, Path)
+	local captureNames = {}
 
-	self.pattern = self.pattern:match("^(/?.-)/*$") -- Remove trailing slash(es)
-	self.pattern = "^" .. self.pattern:gsub(":([a-zA-Z0-9_]+)(%??)", function(name, optional)
-		table.insert(self.captures, name)
-
-		-- %s gets replaced by format
-		return ("([^/?]%s)"):format(optional ~= "" and "*" or "+")
+	-- Add captures
+	pattern = pattern:gsub(":([^/]+)", function(captureName)
+		table.insert(captureNames, captureName)
+		return "([^/]+)"
 	end)
 
-	return self
+	-- Add start anchor
+	pattern = "^" .. pattern
+
+	-- Remove trailing slashes
+	pattern = pattern:match("^(.+)/*$")
+
+	return setmetatable({
+		_pattern = pattern,
+		_captureNames = captureNames
+	}, Path)
 end
 
-function Path:match(location)
-	local matched = { location:match(self.pattern) }
+function Path:_assignCaptureNames(...)
+	local captures = {}
 
-	if #matched == 0 then
-		return nil
+	for index, value in ipairs({ ... }) do
+		local captureName = self._captureNames[index]
+		if captureName then
+			captures[captureName] = value
+		end
+	end
+
+	return captures
+end
+
+function Path:match(path, options)
+	options = options or {}
+
+	local pattern = self._pattern
+
+	if options.exact then
+		pattern = pattern .. "$"
+	end
+
+	local match = { path:match(pattern) }
+
+	if #match > 0 then
+		return self:_assignCaptureNames(unpack(match))
 	else
-		if #self.captures == 0 then
-			return {} -- Lua returns the original string if there are no captures
-		end
+		return nil
 	end
-
-	local output = {}
-
-	for index, match in pairs(matched) do
-		if match ~= "" then
-			output[self.captures[index]] = match
-		end
-	end
-
-	return output
 end
 
 return Path

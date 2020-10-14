@@ -1,86 +1,88 @@
+local Signal = require(script.Parent.Signal)
+
 local History = {}
 History.__index = History
 
-function History.new(options)
-	options.index = options.index or 1
-	options.entries = options.entries or {"/"}
+function History.new(initialEntries, initialIndex)
+	initialEntries = initialEntries or { "/" }
+	initialIndex = initialIndex or #initialEntries
 
-	assert(#options.entries ~= 0, "options.entries is empty")
-	assert(options.index >= 1 and options.index <= #options.entries, "options.index is out of range")
+	local entries = {}
 
-	for index = 1, #options.entries do
-		local entry = options.entries[index]
+	for _, path in ipairs(initialEntries) do
+		table.insert(entries, {
+			path = path,
+			state = {}
+		})
+	end
 
-		if type(entry) == "string" then
-			options.entries[index] = {
-				location = entry
-			}
+	return setmetatable({
+		location = entries[initialIndex],
+		onChanged = Signal.new(),
+
+		_entries = entries,
+		_index = initialIndex
+	}, History)
+end
+
+function History:_removeFutureEntries()
+	if #self._entries > self._index then
+		for index = self._index + 1, #self._entries do
+			self._entries[index] = nil
 		end
 	end
-
-	local self = setmetatable({
-		index = options.index,
-		entries = options.entries,
-
-		_changed = Instance.new("BindableEvent")
-	}, History)
-
-	local currentEntry = self.entries[self.index]
-
-	self.location = currentEntry.location
-	self.state = currentEntry.state
-
-	return self
 end
 
-function History:replace(location, state)
-	self.entries[self.index] = {
-		location = location,
-		state = state
+function History:push(path, state)
+	self:_removeFutureEntries()
+
+	local entry = {
+		path = path,
+		state = state or {}
 	}
 
-	self.location = location
-	self.state = state
+	table.insert(self._entries, entry)
+	self._index = #self._entries
 
-	self._changed:fire(location, state)
-
-	-- Remove state ahead of current index, if it exists
-	for index = self.index + 1, #self.entries do
-		self.entries[index] = nil
-	end
+	self.location = entry
+	self.onChanged:fire(entry.path, entry.state)
 end
 
-function History:push(location, state)
-	self.index = self.index + 1
-	self:replace(location, state)
-end
+function History:replace(path, state)
+	self:_removeFutureEntries()
 
-function History:subscribe(handler)
-	return self._changed.Event:connect(handler)
-end
+	local entry = {
+		path = path,
+		state = state or {}
+	}
 
-function History:reset(location, state)
-	self.index = 0
-	self:push(location, state)
+	self._entries[#self._entries] = entry
+
+	self.location = entry
+	self.onChanged:fire(entry.path, entry.state)
 end
 
 function History:go(offset)
-	self.index = math.clamp(self.index + offset, 1, #self.entries)
+	self._index = math.clamp(self._index + offset, 1, #self._entries)
 
-	local currentEntry = self.entries[self.index]
-
-	self.location = currentEntry.location
-	self.state = currentEntry.state
-
-	self._changed:fire(currentEntry.location, currentEntry.state)
+	self.location = self._entries[self._index]
+	self.onChanged:fire(self.location.path, self.location.state)
 end
 
 function History:goBack()
-	self:go(-1)
+	return self:go(-1)
 end
 
 function History:goForward()
-	self:go(1)
+	return self:go(1)
+end
+
+function History:goToStart()
+	return self:go(-(self._index - 1))
+end
+
+function History:goToEnd()
+	return self:go(#self._entries - #self._index)
 end
 
 return History

@@ -1,9 +1,8 @@
-if not script.Parent:FindFirstChild("Roact") then
-	error("Roact must be in the same directory as roact-router!")
-end
-
 return {
-	Router = require(script.Router),
 	Route = require(script.Route),
-	Link = require(script.Link)
+	Router = require(script.Router),
+	Redirect = require(script.Redirect),
+
+	Context = require(script.Context),
+	History = require(script.History)
 }
