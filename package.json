@@ -1,0 +1,24 @@
+{
+	"name": "@rbxts/roact-router",
+	"version": "1.0.0",
+	"description": "Minimal React Router implementation for Roact",
+	"main": "src/init.lua",
+	"types": "typings/index.d.ts",
+	"files": [
+		"src",
+		"typings"
+	],
+	"license": "MIT",
+	"author": "Reselim",
+	"homepage": "https://github.com/Reselim/roact-router",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Reselim/roact-router"
+	},
+	"devDependencies": {
+		"@rbxts/types": "^1.0.390"
+	},
+	"dependencies": {
+		"@rbxts/roact": "^1.3.0-ts.5"
+	}
+}

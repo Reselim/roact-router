@@ -1,6 +1,6 @@
 return {
-	Route = require(script.Route),
 	Router = require(script.Router),
+	Route = require(script.Route),
 	Redirect = require(script.Redirect),
 
 	Context = require(script.Context),
