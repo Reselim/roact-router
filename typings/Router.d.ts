@@ -11,7 +11,7 @@ interface RouterProps {
 
 declare class Router extends Roact.Component<RouterProps> {
 	constructor(props: RouterProps)
-	public render(): Roact.ElementFragment
+	public render(): Roact.Element
 }
 
 export = Router
