@@ -2,8 +2,6 @@
 
 *[Documentation (TODO)]()*
 
-<br>
-
 Incomplete; usage not recommended yet.
 
 # Installation
