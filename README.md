@@ -10,7 +10,7 @@ Roact Router searches for a Roact module with the same parent as it. If it doesn
 
 ## With Rojo 0.6.0+
 
-Add `https://github.com/Reselim/roact-router` as a Git submodule into the directory that you prefer to store your packages in.
+Add this repository as a Git submodule into the directory that you prefer to store your packages in.
 
 ```
 git submodule add https://github.com/Reselim/roact-router packages/RoactRouter
