@@ -1,8 +1,6 @@
-<center>
-	<img src=".github/logo.png" height="170px">
-	<br><br>
-	<i><a href="">Documentation (TODO)</a></i>
-</center>
+<img src=".github/logo.png" height="170px">
+
+*[Documentation (TODO)]()*
 
 <br>
 
