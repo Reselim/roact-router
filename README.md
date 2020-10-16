@@ -2,8 +2,6 @@
 
 *[Documentation (TODO)]()*
 
-Incomplete; usage not recommended yet.
-
 # Installation
 
 Roact Router searches for a Roact module with the same parent as it. If it doesn't find Roact, it will fail to load.
