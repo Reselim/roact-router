@@ -1,20 +1,20 @@
-local Roact = require(script.Parent.Parent.Roact)
+local Roact = require(script.Parent.Roact)
+
+local Context = require(script.Parent.Context)
 local History = require(script.Parent.History)
 
 local Router = Roact.Component:extend("Router")
 
 function Router:init()
-	self._context.history = History.new(self.props)
+	self.history = self.props.history or History.new(self.props.initialEntries, self.props.initialIndex)
 end
 
 function Router:render()
-	local children = self.props[Roact.Children]
-
-	if Roact.createFragment then
-		return Roact.createFragment(children)
-	end
-
-	return Roact.oneChild(children)
+	return Roact.createElement(Context.Provider, {
+		value = {
+			history = self.history
+		}
+	}, self.props[Roact.Children])
 end
 
 return Router

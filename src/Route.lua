@@ -1,20 +1,33 @@
-local Roact = require(script.Parent.Parent.Roact)
+local Roact = require(script.Parent.Roact)
+local Context = require(script.Parent.Context)
 local Path = require(script.Parent.Path)
+local merge = require(script.Parent.merge)
 
-local Route = Roact.PureComponent:extend("Route")
+local Route = Roact.Component:extend("Route")
+
+Route.defaultProps = {
+	path = "/",
+	always = false,
+	exact = false
+}
+
+function Route.getDerivedStateFromProps(props)
+	return {
+		path = Path.new(props.path)
+	}
+end
 
 function Route:init()
-	local history = self._context.history
+	local context = self.props.context
+	local history = context.history
 
 	self:setState({
-		location = history.location,
-		state = history.state
+		match = self.state.path:match(history.location.path, self.props)
 	})
 
-	self.listener = history:subscribe(function(location, state)
+	self.listener = history.onChanged:connect(function(path)
 		self:setState({
-			location = location,
-			state = state
+			match = self.state.path:match(path, self.props) or Roact.None
 		})
 	end)
 end
@@ -24,34 +37,35 @@ function Route:willUnmount()
 end
 
 function Route:render()
-	local match = self.state.path:match(self.state.location)
-
-	local props = {
-		match = match,
-		location = self.state.location,
-		state = self.state.state,
-		history = self._context.history
+	local context = self.props.context
+	
+	local routeProps = {
+		match = self.state.match,
+		location = context.history.location,
+		history = context.history
 	}
 
-	if match then
-		if not self.props.exact or self.props.path == self.state.location then
-			if self.props.component then
-				return Roact.createElement(self.props.component, props)
-			elseif self.props.render then
-				return self.props.render(props)
-			end
+	if self.props.always or self.state.match then
+		if self.props.render then
+			return self.props.render(routeProps)
+		elseif self.props.component then
+			return Roact.createElement(self.props.component, routeProps)
+		else
+			return Roact.createFragment(self.props[Roact.Children])
 		end
-	end
-
-	if self.props.children then
-		return self.props.children(props)
+	else
+		return nil
 	end
 end
 
-function Route.getDerivedStateFromProps(props)
-	return {
-		path = Path.new(props.path)
-	}
+local function RouteWrapper(props)
+	return Roact.createElement(Context.Consumer, {
+		render = function(context)
+			return Roact.createElement(Route, merge(props, {
+				context = context
+			}))
+		end
+	})
 end
 
-return Route
+return RouteWrapper
