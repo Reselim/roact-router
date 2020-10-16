@@ -24,7 +24,11 @@ Grab the latest .rbxm file from the [releases page](https://github.com/Reselim/r
 
 ## Using [roblox-ts](https://github.com/roblox-ts/roblox-ts)
 
-typings not complete yet
+Install with npm:
+
+```
+npm i @rbxts/roact-router
+```
 
 # License
 
