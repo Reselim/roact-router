@@ -1,6 +1,6 @@
 <p align="center">
 	<img src=".github/logo.svg" height="170">
-	<br>
+	<br><br>
 	<a href=""><i>Documentation (TODO)</i></a>
 </p>
 
