@@ -1,6 +1,8 @@
-<img src=".github/logo.png" height="170px">
-
-*[Documentation (TODO)]()*
+<p align="center">
+	<img src=".github/logo.svg" height="170">
+	<br>
+	<a href=""><i>Documentation (TODO)</i></a>
+</p>
 
 # Installation
 
