@@ -1,4 +1,5 @@
 return {
+	Link = require(script.Link),
 	Router = require(script.Router),
 	Route = require(script.Route),
 	Redirect = require(script.Redirect),

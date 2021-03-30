@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact"
 
-interface LinkProps {
+interface LinkProps extends JsxObject<ImageButton> {
 	path: string
 	state?: any
 }
