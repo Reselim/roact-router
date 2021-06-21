@@ -12,8 +12,8 @@ end
 function Router:render()
 	return Roact.createElement(Context.Provider, {
 		value = {
-			history = self.history
-		}
+			history = self.history,
+		},
 	}, self.props[Roact.Children])
 end
 

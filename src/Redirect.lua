@@ -11,7 +11,7 @@ local function Redirect(props)
 			else
 				history:push(props.path, props.state)
 			end
-		end
+		end,
 	})
 end
 

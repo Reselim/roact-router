@@ -8,7 +8,7 @@ local Route = Roact.Component:extend("Route")
 Route.defaultProps = {
 	path = "/",
 	alwaysRender = false,
-	exact = false
+	exact = false,
 }
 
 function Route.getDerivedStateFromProps(props)
@@ -22,12 +22,12 @@ function Route:init()
 	local history = context.history
 
 	self:setState({
-		match = self.state.path:match(history.location.path, self.props)
+		match = self.state.path:match(history.location.path, self.props),
 	})
 
 	self.listener = history.onChanged:connect(function(path)
 		self:setState({
-			match = self.state.path:match(path, self.props) or Roact.None
+			match = self.state.path:match(path, self.props) or Roact.None,
 		})
 	end)
 end
@@ -42,7 +42,7 @@ function Route:render()
 	local routeProps = {
 		match = self.state.match,
 		location = context.history.location,
-		history = context.history
+		history = context.history,
 	}
 
 	if self.props.alwaysRender or self.state.match then
@@ -62,9 +62,9 @@ local function RouteWrapper(props)
 	return Roact.createElement(Context.Consumer, {
 		render = function(context)
 			return Roact.createElement(Route, merge(props, {
-				context = context
+				context = context,
 			}))
-		end
+		end,
 	})
 end
 

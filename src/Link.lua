@@ -22,9 +22,9 @@ local function Link(props)
 					else
 						history:push(props.path, props.state)
 					end
-				end
+				end,
 			}))
-		end
+		end,
 	})
 end
 

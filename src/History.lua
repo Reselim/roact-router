@@ -12,7 +12,7 @@ function History.new(initialEntries, initialIndex)
 	for _, path in ipairs(initialEntries) do
 		table.insert(entries, {
 			path = path,
-			state = {}
+			state = {},
 		})
 	end
 
@@ -21,7 +21,7 @@ function History.new(initialEntries, initialIndex)
 		onChanged = Signal.new(),
 
 		_entries = entries,
-		_index = initialIndex
+		_index = initialIndex,
 	}, History)
 end
 
@@ -38,7 +38,7 @@ function History:push(path, state)
 
 	local entry = {
 		path = path,
-		state = state or {}
+		state = state or {},
 	}
 
 	table.insert(self._entries, entry)
@@ -53,7 +53,7 @@ function History:replace(path, state)
 
 	local entry = {
 		path = path,
-		state = state or {}
+		state = state or {},
 	}
 
 	self._entries[#self._entries] = entry

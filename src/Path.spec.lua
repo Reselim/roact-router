@@ -5,7 +5,7 @@ return function()
 		local test = Path.new("/test")
 		
 		local match = test:match("/test/hello", {
-			exact = true
+			exact = true,
 		})
 
 		expect(match).to.equal(nil)
@@ -15,7 +15,7 @@ return function()
 		local test = Path.new("/test")
 		
 		local match = test:match("/test/hello", {
-			exact = false
+			exact = false,
 		})
 
 		expect(type(match)).to.equal("table")

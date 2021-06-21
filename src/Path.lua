@@ -18,7 +18,7 @@ function Path.new(pattern)
 
 	return setmetatable({
 		_pattern = pattern,
-		_captureNames = captureNames
+		_captureNames = captureNames,
 	}, Path)
 end
 
