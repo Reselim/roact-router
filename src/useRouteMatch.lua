@@ -8,7 +8,7 @@ local function useParams(options, hooks)
 	
 	local path = hooks.useMemo(function()
 		return Path.new(options.path)
-	end, { options.path, options.exact })
+	end, { options.path })
 
 	local context = hooks.useContext(RouteContext)
 	return path:match(context.location, options)
