@@ -7,7 +7,7 @@ local Route = Roact.Component:extend("Route")
 
 Route.defaultProps = {
 	path = "/",
-	always = false,
+	alwaysRender = false,
 	exact = false
 }
 
@@ -45,7 +45,7 @@ function Route:render()
 		history = context.history
 	}
 
-	if self.props.always or self.state.match then
+	if self.props.alwaysRender or self.state.match then
 		if self.props.render then
 			return self.props.render(routeProps)
 		elseif self.props.component then
