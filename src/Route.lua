@@ -1,7 +1,10 @@
 local Roact = require(script.Parent.Roact)
-local Context = require(script.Parent.Context)
+
+local RouteContext = require(script.Parent.RouteContext)
 local Path = require(script.Parent.Path)
+local withRouter = require(script.Parent.withRouter)
 local merge = require(script.Parent.merge)
+local getComponentName = require(script.Parent.getComponentName)
 
 local Route = Roact.Component:extend("Route")
 
@@ -13,7 +16,7 @@ Route.defaultProps = {
 
 function Route.getDerivedStateFromProps(props)
 	return {
-		path = Path.new(props.path)
+		path = Path.new(props.path),
 	}
 end
 
@@ -45,27 +48,31 @@ function Route:render()
 		history = context.history,
 	}
 
+	local element
+
 	if self.props.alwaysRender or self.state.match then
 		if self.props.render then
-			return self.props.render(routeProps)
+			element = self.props.render(routeProps)
 		elseif self.props.component then
-			return Roact.createElement(self.props.component, routeProps)
+			element = Roact.createElement(self.props.component, routeProps)
 		else
-			return Roact.createFragment(self.props[Roact.Children])
+			element = Roact.createFragment(self.props[Roact.Children])
 		end
-	else
-		return nil
 	end
+
+	return Roact.createElement(RouteContext.Provider, {
+		value = routeProps,
+	}, {
+		[element and getComponentName(element.component) or "nil"] = element,
+	})
 end
 
 local function RouteWrapper(props)
-	return Roact.createElement(Context.Consumer, {
-		render = function(context)
-			return Roact.createElement(Route, merge(props, {
-				context = context,
-			}))
-		end,
-	})
+	return withRouter(function(router)
+		return Roact.createElement(Route, merge(props, {
+			context = router,
+		}))
+	end)
 end
 
 return RouteWrapper
