@@ -1,7 +1,7 @@
 local Path = require(script.Parent.Path)
 local RouteContext = require(script.Parent.RouteContext)
 
-local function useParams(options, hooks)
+local function useRouteMatch(options, hooks)
 	if type(options) == "table" then
 		options = { path = options }
 	end
@@ -14,4 +14,4 @@ local function useParams(options, hooks)
 	return path:match(context.location, options)
 end
 
-return useParams
+return useRouteMatch
