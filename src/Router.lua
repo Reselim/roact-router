@@ -1,6 +1,6 @@
 local Roact = require(script.Parent.Roact)
 
-local Context = require(script.Parent.Context)
+local RouterContext = require(script.Parent.RouterContext)
 local History = require(script.Parent.History)
 
 local Router = Roact.Component:extend("Router")
@@ -10,7 +10,7 @@ function Router:init()
 end
 
 function Router:render()
-	return Roact.createElement(Context.Provider, {
+	return Roact.createElement(RouterContext.Provider, {
 		value = {
 			location = self.history.location,
 			history = self.history,
