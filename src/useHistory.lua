@@ -1,7 +1,7 @@
-local RouteContext = require(script.Parent.RouteContext)
+local RouterContext = require(script.Parent.RouterContext)
 
 local function useHistory(hooks)
-	local context = hooks.useContext(RouteContext)
+	local context = hooks.useContext(RouterContext)
 	return context.history
 end
 

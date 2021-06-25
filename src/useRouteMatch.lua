@@ -1,5 +1,5 @@
 local Path = require(script.Parent.Path)
-local RouteContext = require(script.Parent.RouteContext)
+local RouterContext = require(script.Parent.RouterContext)
 
 local function useRouteMatch(options, hooks)
 	if type(options) == "table" then
@@ -10,7 +10,7 @@ local function useRouteMatch(options, hooks)
 		return Path.new(options.path)
 	end, { options.path })
 
-	local context = hooks.useContext(RouteContext)
+	local context = hooks.useContext(RouterContext)
 	return path:match(context.location, options)
 end
 
