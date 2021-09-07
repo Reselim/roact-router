@@ -7,7 +7,7 @@ if not roactModule then
 	local rbxts = game:GetService("ReplicatedStorage"):FindFirstChild("rbxts_include")
 	if rbxts ~= nil then
 		local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-		Roact = TS.import(script, TS.getModule(script, "roact").roact.src)
+		Roact = TS.import(script, TS.getModule(script, "roact").src)
 	else
 		error("Roact Router failed to find Roact. Did you make sure Roact is in the same folder?")
 	end
