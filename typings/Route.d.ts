@@ -3,13 +3,13 @@ import Roact from "@rbxts/roact"
 import { PathMatchResults } from "./Path"
 import { History, HistoryEntry } from "./History"
 
-interface RouteRendererProps {
+export interface RouteRendererProps {
 	match: PathMatchResults | undefined
 	location: HistoryEntry
 	history: History
 }
 
-interface RouteProps {
+export interface RouteProps {
 	path: string
 	exact?: boolean
 
@@ -22,4 +22,4 @@ declare class Route extends Roact.Component {
 	public render(): Roact.Element | undefined
 }
 
-export = Route
+export default Route
