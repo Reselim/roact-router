@@ -3,6 +3,7 @@ name = "reselim/roact-router"
 version = "1.0.3"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+include = ["default.project.json", "src"]
 
 [dependencies]
 Roact = "roblox/roact@1.4.0"
