@@ -1,6 +1,6 @@
 [package]
 name = "reselim/roact-router"
-version = "1.0.0"
+version = "1.0.3"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
