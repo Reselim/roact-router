@@ -1,9 +1,5 @@
 local function getComponentName(component)
 	if component then
-		if component.name then
-			return component
-		end
-
 		if type(component) == "function" then
 			-- selene: allow(incorrect_standard_library_use)
 			local name = debug.info(component, "n")
@@ -11,6 +7,10 @@ local function getComponentName(component)
 				return name
 			else
 				return "<anonymous>"
+			end
+		else
+			if component.__componentName then
+				return component.__componentName
 			end
 		end
 	end
