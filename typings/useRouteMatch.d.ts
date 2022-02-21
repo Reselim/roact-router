@@ -5,6 +5,6 @@ export interface RouteMatchOptions extends PathMatchOptions {
         path: string
 }
 
-declare function useRouteMatch(options: RouteMatchOptions, hooks: CoreHooks): PathMatchResults
+declare function useRouteMatch(hooks: CoreHooks, options: RouteMatchOptions): PathMatchResults
 
 export default useRouteMatch
