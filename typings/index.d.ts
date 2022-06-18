@@ -1,4 +1,4 @@
-import { RoactContext } from "@rbxts/roact-hooks"
+import { RoactContext } from "./hooks"
 
 import Router from "./Router"
 import Route, { RouteRendererProps } from "./Route"
