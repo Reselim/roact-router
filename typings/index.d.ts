@@ -1,4 +1,4 @@
-import { RoactContext } from "@rbxts/roact-hooks"
+import Roact from "@rbxts/roact"
 
 import Router from "./Router"
 import Route, { RouteRendererProps } from "./Route"
@@ -15,6 +15,15 @@ import useRouteMatch from "./useRouteMatch"
 
 import { Path } from "./Path"
 import { History } from "./History"
+
+interface RoactContext<T> {
+        Provider: Roact.ComponentConstructor<{
+                value: T;
+        }>;
+        Consumer: Roact.ComponentConstructor<{
+                render: (value: T) => Roact.Element | undefined;
+        }>;
+}
 
 interface RouteContext extends RoactContext<RouteRendererProps> {}
 interface RouterContext extends RoactContext<RouterRendererProps> {}
