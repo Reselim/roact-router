@@ -1,18 +1,11 @@
 local container = script.Parent.Parent
-local roactModule = container:FindFirstChild("Roact")
-local Roact = nil
+local Roact = container:FindFirstChild("Roact")
+    or container:FindFirstChild("roact")
+    or container.Parent:FindFirstChild("Roact")
+    or container.Parent:FindFirstChild("roact")
 
-if not roactModule then
-	-- If the rbx-ts runtime is around, try loading with that
-	local rbxts = game:GetService("ReplicatedStorage"):FindFirstDescendant("RuntimeLib") or container:FindFirstAncestor("RuntimeLib")
-	if rbxts ~= nil then
-		local TS = require(rbxts)
-		Roact = TS.import(script, TS.getModule(script, "roact").src)
-	else
+if not Roact then
 		error("Roact Router failed to find Roact. Did you make sure Roact is in the same folder?")
-	end
-else
-	Roact = require(roactModule)
 end
 
-return Roact
+return require(Roact)
