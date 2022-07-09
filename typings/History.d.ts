@@ -10,8 +10,8 @@ declare class History {
 
 	onChanged: Signal
 
-	push(path: string, state: any): void
-	replace(path: string, state: any): void
+	push(path: string, state?: any): void
+	replace(path: string, state?: any): void
 
 	go(offset: number): void
 	
