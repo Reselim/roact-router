@@ -16,8 +16,8 @@ import useRouteMatch from "./useRouteMatch"
 import { Path } from "./Path"
 import { History } from "./History"
 
-interface RouteContext extends RoactContext<RouteRendererProps> {}
-interface RouterContext extends RoactContext<RouterRendererProps> {}
+declare const RouteContext: RoactContext<RouteRendererProps>
+declare const RouterContext: RoactContext<RouterRendererProps>
 
 export {
 	Router,
