@@ -12,6 +12,7 @@ export interface RouteRendererProps {
 export interface RouteProps {
 	path: string
 	exact?: boolean
+	alwaysRender?: boolean
 
 	render?: (rendererProps: RouteRendererProps) => Roact.Element | undefined
 	component?: Roact.Component<RouteRendererProps>
